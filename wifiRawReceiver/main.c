@@ -31,6 +31,7 @@ $ sudo ifconfig wlp5s0 up
 #include <arpa/inet.h>
 #include <assert.h>
 #include <linux/filter.h>
+#include <time.h>
 
 #define PACKET_LENGTH 400 //Approximate
 #define MYDATA 18         //0x12
@@ -74,7 +75,13 @@ static struct sock_filter bpfcode[FILTER_LENGTH] = {
 
 void print_packet(uint8_t *data, int len)
 {
-    printf("----------------------------new packet-----------------------------------\n");
+    time_t raw_time;
+    struct tm *local_time_info;
+    char buffer[80];
+    time(&raw_time);
+    local_time_info = localtime(&raw_time);
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", local_time_info);
+    printf("%s ----------------------------new packet-----------------------------------\n", buffer);
     int i;
     for (i = 0; i < len; i++)
     {

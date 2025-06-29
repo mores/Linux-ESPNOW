@@ -7,3 +7,6 @@ Project description here: https://hackaday.io/project/161896
 1. cd wifiRawReceiver
 2. make
 3. sudo bin/receiver wlp4s0
+
+Now generate some esp-traffic to see the packets on the screen.
+ 
